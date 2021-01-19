@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="plantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="formprincipal">
+                    <p:panel header="#{canchaManagedBean.cancha.id==null?'Ingreso datos  Usuario':'ACTUALIZAR C'}"
+                             rendered="#{canchaManagedBean.cancha!=null}">
+
+                        <div align="center">
+                            <h:panelGrid columns="2">
+                                 <p:outputLabel value="Código"></p:outputLabel>
+                                 <p:inputText value="#{canchaManagedBean.cancha.id}"></p:inputText>
+                                
+                                <p:outputLabel value="Nombre:"></p:outputLabel>
+                                <p:inputText value="#{canchaManagedBean.cancha.nombre}"></p:inputText>
+
+                                <p:outputLabel value="Apellido:"></p:outputLabel>
+                                <p:inputText value="#{canchaManagedBean.cancha.apellido}"></p:inputText>
+
+                                <p:outputLabel value="Cancha:"></p:outputLabel>
+                                <p:inputText value="#{canchaManagedBean.cancha.cancha}"></p:inputText>
+
+                                <p:outputLabel value="Fecha:"></p:outputLabel>
+                                <p:calendar  value="#{canchaManagedBean.cancha.fecha}"></p:calendar>
+
+                                <p:outputLabel value="Hora:"></p:outputLabel>
+                                <p:inputText value="#{canchaManagedBean.cancha.hora}"></p:inputText>
+
+                                <p:outputLabel value="Descripcion:"></p:outputLabel>
+                                <p:inputText value="#{canchaManagedBean.cancha.descripcion}"></p:inputText>
+
+
+                            </h:panelGrid>
+                        </div>
+                        <div align="center">
+                            <p:commandButton value="CANCELAR" action="#{canchaManagedBean.cancelar()}"
+                                             update="formprincipal"></p:commandButton>
+
+                            <p:commandButton value="GRABAR" action="#{canchaManagedBean.grabar()}"
+                                             update="formprincipal"></p:commandButton>
+                        </div>
+                    </p:panel>  
+                    <p:panel header="LISTA " rendered="#{canchaManagedBean.cancha==null}">
+                        <div align="center">
+                            <p:commandButton value="NUEVO" action="#{canchaManagedBean.nuevo()}"
+                                             update="formprincipal">
+                            </p:commandButton>
+                        </div>
+                        <p:dataTable id="tablaCargo" value="#{canchaManagedBean.listaCancha}" var="car" >
+
+                            <p:column headerText="Nombre">
+                                <p:outputLabel value="#{car.nombre}"></p:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Apellido">
+                                <p:outputLabel value="#{car.apellido}"></p:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Cancha">
+                                <p:outputLabel value="#{car.cancha}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <p:outputLabel value="#{car.fecha}">
+                                    <f:convertDateTime pattern="YYYY-MM-dd">
+                                    </f:convertDateTime>
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Hora">
+                                <p:outputLabel value="#{car.hora}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <p:outputLabel value="#{car.descripcion}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="EDITAR">
+                                <p:commandButton action="#{canchaManagedBean.seleccionar(car)}"
+                                                 update="formprincipal"
+                                                 icon="ui-icon-check">
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column headerText="ELIMINAR">
+                                <p:commandButton action="#{canchaManagedBean.eliminar(car)}"
+                                                 update="formprincipal"
+                                                 icon="ui-icon-trash">
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+
